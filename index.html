@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Komenda-Kissi-Elmina Market Delivery Platform</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<style>
+  :root {
+  --primary: #0f766e;
+  --primary-dark: #115e59;
+  --accent: #f59e0b;
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --danger: #dc2626;
+  --success: #16a34a;
+  --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem 6%;
+  color: #fff;
+  background: linear-gradient(135deg, #064e3b, #0f766e 60%, #f59e0b);
+}
+
+.eyebrow {
+  margin: 0 0 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #ccfbf1;
+}
+
+h1, h2, h3, p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 0.4rem;
+  font-size: clamp(1.75rem, 3vw, 3rem);
+}
+
+.subtext {
+  margin-bottom: 0;
+  color: #ecfeff;
+}
+
+.app-shell {
+  width: min(1180px, 92%);
+  margin: -1.2rem auto 3rem;
+}
+
+.role-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: #fff;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  box-shadow: var(--shadow);
+  gap: 0.5rem;
+}
+
+.tab, button, input, select, textarea {
+  font: inherit;
+}
+
+.tab {
+  border: 0;
+  padding: 0.95rem;
+  border-radius: 0.75rem;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.tab.active {
+  background: var(--primary);
+  color: #fff;
+}
+
+.panel {
+  display: none;
+  margin-top: 1.4rem;
+}
+
+.active-panel {
+  display: block;
+}
+
+.panel-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.status-card {
+  min-width: 180px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: var(--shadow);
+}
+
+.status-card span {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 0.35rem;
+}
+
+.status-card strong {
+  font-size: 1.25rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.two-col {
+  grid-template-columns: 1.15fr 0.85fr;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 1.2rem;
+  padding: 1.2rem;
+  box-shadow: var(--shadow);
+}
+
+.mt {
+  margin-top: 1rem;
+}
+
+label {
+  display: block;
+  margin: 0.85rem 0 0.35rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+input, select, textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 0.85rem;
+  outline: none;
+  background: #fff;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.12);
+}
+
+.primary-btn, .secondary-btn, .danger-btn, .success-btn {
+  border: 0;
+  border-radius: 0.75rem;
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.primary-btn {
+  background: var(--primary);
+  color: #fff;
+}
+
+.primary-btn:hover {
+  background: var(--primary-dark);
+}
+
+.secondary-btn {
+  background: #e0f2fe;
+  color: #075985;
+}
+
+.danger-btn {
+  background: #fee2e2;
+  color: var(--danger);
+}
+
+.success-btn {
+  background: #dcfce7;
+  color: var(--success);
+}
+
+.checkout-form .primary-btn, .compact-form .primary-btn {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.product-list, .order-list, .cart-list {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.product-card, .order-card, .cart-item, .metric-card {
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1rem;
+  background: #fff;
+}
+
+.product-card {
+  display: grid;
+  grid-template-columns: 74px 1fr;
+  gap: 0.9rem;
+}
+
+.product-img {
+  width: 74px;
+  height: 74px;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, #d1fae5, #fef3c7);
+  display: grid;
+  place-items: center;
+  font-size: 2rem;
+}
+
+.meta {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  background: #f1f5f9;
+  color: #334155;
+  margin: 0.1rem 0.25rem 0.1rem 0;
+}
+
+.badge.green { background: #dcfce7; color: #166534; }
+.badge.orange { background: #ffedd5; color: #9a3412; }
+.badge.red { background: #fee2e2; color: #991b1b; }
+.badge.blue { background: #dbeafe; color: #1e40af; }
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+
+.split-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.compact-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+}
+
+.compact-form .primary-btn {
+  grid-column: 1 / -1;
+}
+
+.empty-state {
+  padding: 1rem;
+  color: var(--muted);
+  background: #f8fafc;
+  border: 1px dashed var(--border);
+  border-radius: 1rem;
+}
+
+.notice {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  padding: 1rem;
+  border-radius: 1rem;
+  line-height: 1.7;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.metric-card span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-bottom: 0.3rem;
+}
+
+.metric-card strong {
+  font-size: 1.5rem;
+}
+
+.receipt {
+  padding: 2rem;
+  color: #111;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@media (max-width: 820px) {
+  .app-header, .panel-heading, .split-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .role-tabs, .two-col, .metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .user-card {
+    flex-direction: column;
+  }
+
+  .vertical-actions {
+    width: 100%;
+  }
+
+  .compact-form {
+    grid-template-columns: 1fr;
+  }
+
+  .app-shell {
+    width: 94%;
+  }
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .print-area, .print-area * {
+    visibility: visible;
+  }
+
+  .print-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+}
+
+.user-list {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.user-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1rem;
+  background: #f8fafc;
+}
+
+.user-card h4 {
+  margin-bottom: 0.25rem;
+}
+
+.vertical-actions {
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 120px;
+}
+
+</style>
+<body>
+  <header class="app-header">
+    <div>
+      <p class="eyebrow">Market Food Delivery Platform</p>
+      <h1>Komenda-Kissi-Elmina Delivery System</h1>
+      <p class="subtext">Customer, Vendor, Rider and Admin workflow prototype</p>
+    </div>
+    <button class="secondary-btn" id="resetDataBtn">Reset Demo Data</button>
+  </header>
+
+  <main class="app-shell">
+    <nav class="role-tabs" aria-label="User role navigation">
+      <button class="tab active" data-role="customer">Customer</button>
+      <button class="tab" data-role="vendor">Vendor</button>
+      <button class="tab" data-role="rider">Rider</button>
+      <button class="tab" data-role="admin">Admin</button>
+    </nav>
+
+    <section id="customer" class="panel active-panel">
+      <div class="panel-heading">
+        <div>
+          <h2>Customer Dashboard</h2>
+          <p>Browse market goods, add items to cart, place orders and print receipts.</p>
+        </div>
+        <div class="status-card">
+          <span>Cart Total</span>
+          <strong id="cartTotal">GHS 0.00</strong>
+        </div>
+      </div>
+
+      <div class="grid two-col">
+        <section class="card">
+          <h3>Browse Products</h3>
+          <label for="marketFilter">Choose Market</label>
+          <select id="marketFilter">
+            <option value="all">All Markets</option>
+            <option value="Ayensudo">Ayensudo</option>
+            <option value="Kissi">Kissi</option>
+            <option value="Elmina">Elmina</option>
+          </select>
+          <input type="search" id="productSearch" placeholder="Search fish, tomatoes, fruits..." />
+          <div id="productList" class="product-list"></div>
+        </section>
+
+        <section class="card">
+          <h3>Cart & Checkout</h3>
+          <div id="cartItems" class="cart-list empty-state">Your cart is empty.</div>
+
+          <form id="checkoutForm" class="checkout-form">
+            <label for="customerName">Customer Name</label>
+            <input id="customerName" type="text" value="Roland Nyame" required />
+
+            <label for="customerPhone">Phone Number</label>
+            <input id="customerPhone" type="tel" value="0534386545" required />
+
+            <label for="deliveryAddress">Delivery Address / Landmark</label>
+            <textarea id="deliveryAddress" rows="3" required>Near Nduom Campus Hostel, blue gate</textarea>
+
+            <label for="paymentMethod">Payment Method</label>
+            <select id="paymentMethod">
+              <option value="Cash on Delivery">Cash on Delivery</option>
+              <option value="Mobile Money Escrow">Mobile Money Escrow</option>
+            </select>
+
+            <button class="primary-btn" type="submit">Place Order</button>
+          </form>
+        </section>
+      </div>
+
+      <section class="card mt">
+        <h3>My Orders</h3>
+        <div id="customerOrders" class="order-list"></div>
+      </section>
+    </section>
+
+    <section id="vendor" class="panel">
+      <div class="panel-heading">
+        <div>
+          <h2>Vendor Dashboard</h2>
+          <p>Manage products, open/closed status, accept orders and verify rider pickup.</p>
+        </div>
+        <div class="status-card">
+          <span>Vendor Status</span>
+          <strong id="vendorStatusText">Open</strong>
+        </div>
+      </div>
+
+      <div class="grid two-col">
+        <section class="card">
+          <div class="split-row">
+            <h3>Inventory</h3>
+            <button class="secondary-btn" id="toggleVendorBtn">Toggle Open/Closed</button>
+          </div>
+          <form id="productForm" class="compact-form">
+            <input id="newProductName" type="text" placeholder="Product name" required />
+            <select id="newProductVendor" required></select>
+            <select id="newProductMarket">
+              <option>Ayensudo</option>
+              <option>Kissi</option>
+              <option>Elmina</option>
+            </select>
+            <input id="newProductCategory" type="text" placeholder="Category" required />
+            <input id="newProductPrice" type="number" min="1" placeholder="Price" required />
+            <input id="newProductStock" type="number" min="1" placeholder="Stock" required />
+            <button class="primary-btn" type="submit">Add Product</button>
+          </form>
+          <div id="vendorProducts" class="product-list"></div>
+        </section>
+
+        <section class="card">
+          <h3>Incoming Vendor Orders</h3>
+          <div id="vendorOrders" class="order-list"></div>
+        </section>
+      </div>
+    </section>
+
+    <section id="rider" class="panel">
+      <div class="panel-heading">
+        <div>
+          <h2>Rider Dashboard</h2>
+          <p>Go online, accept nearby orders, verify pickup OTP and confirm delivery OTP.</p>
+        </div>
+        <div class="status-card">
+          <span>Rider Status</span>
+          <strong id="riderStatusText">Online</strong>
+        </div>
+      </div>
+
+      <div class="grid two-col">
+        <section class="card">
+          <div class="split-row">
+            <h3>Rider Controls</h3>
+            <button class="secondary-btn" id="toggleRiderBtn">Toggle Online/Offline</button>
+          </div>
+          <div class="notice">
+            <strong>Demo Rider:</strong> Kofi Mensah<br />
+            <strong>Bike:</strong> M-23-CE 2442<br />
+            <strong>Radius:</strong> 3km demo assignment
+          </div>
+        </section>
+
+        <section class="card">
+          <h3>Available / Active Deliveries</h3>
+          <div id="riderOrders" class="order-list"></div>
+        </section>
+      </div>
+    </section>
+
+    <section id="admin" class="panel">
+      <div class="panel-heading">
+        <div>
+          <h2>Admin Dashboard</h2>
+          <p>Monitor orders, payments, commissions, disputes and platform operations.</p>
+        </div>
+        <div class="status-card">
+          <span>Platform Commission</span>
+          <strong>5%</strong>
+        </div>
+      </div>
+
+      <section class="metrics" id="adminMetrics"></section>
+
+      <div class="grid two-col mt">
+        <section class="card">
+          <h3>Add Vendor</h3>
+          <form id="adminVendorForm" class="compact-form">
+            <input id="adminVendorName" type="text" placeholder="Vendor full name" required />
+            <input id="adminVendorBusiness" type="text" placeholder="Business / stall name" required />
+            <input id="adminVendorPhone" type="tel" placeholder="Phone number" required />
+            <select id="adminVendorMarket" required>
+              <option value="Ayensudo">Ayensudo</option>
+              <option value="Kissi">Kissi</option>
+              <option value="Elmina">Elmina</option>
+            </select>
+            <input id="adminVendorStall" type="text" placeholder="Stall number / landmark" required />
+            <input id="adminVendorGoods" type="text" placeholder="Main goods sold" required />
+            <button class="primary-btn" type="submit">Add Vendor</button>
+          </form>
+          <div id="adminVendors" class="user-list"></div>
+        </section>
+
+        <section class="card">
+          <h3>Add Rider</h3>
+          <form id="adminRiderForm" class="compact-form">
+            <input id="adminRiderName" type="text" placeholder="Rider full name" required />
+            <input id="adminRiderPhone" type="tel" placeholder="Phone number" required />
+            <input id="adminRiderBike" type="text" placeholder="Bike / vehicle number" required />
+            <input id="adminRiderLicense" type="text" placeholder="License number" required />
+            <select id="adminRiderMarket" required>
+              <option value="Ayensudo">Ayensudo zone</option>
+              <option value="Kissi">Kissi zone</option>
+              <option value="Elmina">Elmina zone</option>
+            </select>
+            <input id="adminRiderEmergency" type="tel" placeholder="Emergency contact" required />
+            <button class="primary-btn" type="submit">Add Rider</button>
+          </form>
+          <div id="adminRiders" class="user-list"></div>
+        </section>
+      </div>
+
+      <section class="card mt">
+        <h3>All Orders</h3>
+        <div id="adminOrders" class="order-list"></div>
+      </section>
+    </section>
+  </main>
+
+  <template id="receiptTemplate">
+    <div class="receipt">
+      <h2>Komenda-Kissi-Elmina Market Delivery</h2>
+      <p class="receipt-date"></p>
+      <hr />
+      <div class="receipt-body"></div>
+      <hr />
+      <p>Thank you for using our market delivery platform.</p>
+    </div>
+  </template>
+
+  <script >
+    const STORAGE_KEY = 'kke_delivery_demo_v2';
+const DELIVERY_FEE = 12;
+const COMMISSION_RATE = 0.05;
+
+const defaultState = {
+  vendorOpen: true,
+  riderOnline: true,
+  vendors: [
+    { id: 'V-001', fullName: 'Adjoa Mensah', businessName: 'Adjoa Market Foods', phone: '0241111111', market: 'Komenda', stall: 'Near Komenda Lorry Station', goods: 'Tomatoes, pepper, vegetables', status: 'Approved', createdAt: new Date().toISOString() },
+    { id: 'V-002', fullName: 'Esi Arhin', businessName: 'Esi Fish Stall', phone: '0242222222', market: 'Elmina', stall: 'Opposite the Fish Market', goods: 'Fresh and smoked fish', status: 'Approved', createdAt: new Date().toISOString() },
+    { id: 'V-003', fullName: 'Akua Bentsi', businessName: 'Akua Fresh Goods', phone: '0243333333', market: 'Kissi', stall: 'Kissi Market Center', goods: 'Garden eggs, onions, vegetables', status: 'Approved', createdAt: new Date().toISOString() },
+    { id: 'V-004', fullName: 'Ama Ekua', businessName: 'Ama Provision Stall', phone: '0244444444', market: 'Elmina', stall: 'Near Elmina Castle Road', goods: 'Plantain and provisions', status: 'Approved', createdAt: new Date().toISOString() }
+  ],
+  riders: [
+    { id: 'R-001', fullName: 'Kofi Mensah', phone: '0251111111', bikeNumber: 'M-23-CE 2442', licenseNumber: 'LIC-001-KKE', zone: 'Elmina', emergencyContact: '0209999999', status: 'Approved', online: true, createdAt: new Date().toISOString() }
+  ],
+  products: [
+    { id: 1, name: 'Fresh Tomatoes', market: 'Komenda', category: 'Vegetables', price: 18, stock: 40, unit: 'bowl', icon: '🍅', vendorId: 'V-001', vendor: 'Adjoa Market Foods' },
+    { id: 2, name: 'Smoked Fish', market: 'Elmina', category: 'Fish', price: 35, stock: 20, unit: 'pack', icon: '🐟', vendorId: 'V-002', vendor: 'Esi Fish Stall' },
+    { id: 3, name: 'Garden Eggs', market: 'Kissi', category: 'Vegetables', price: 14, stock: 30, unit: 'bowl', icon: '🍆', vendorId: 'V-003', vendor: 'Akua Fresh Goods' },
+    { id: 4, name: 'Fresh Pepper', market: 'Komenda', category: 'Spices', price: 10, stock: 50, unit: 'bowl', icon: '🌶️', vendorId: 'V-001', vendor: 'Adjoa Market Foods' },
+    { id: 5, name: 'Plantain', market: 'Elmina', category: 'Foodstuff', price: 25, stock: 25, unit: 'bunch', icon: '🍌', vendorId: 'V-004', vendor: 'Ama Provision Stall' },
+    { id: 6, name: 'Onions', market: 'Kissi', category: 'Vegetables', price: 16, stock: 35, unit: 'bowl', icon: '🧅', vendorId: 'V-003', vendor: 'Akua Fresh Goods' }
+  ],
+  cart: [],
+  orders: []
+};
+
+let state = loadState();
+
+function loadState() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  const loaded = saved ? JSON.parse(saved) : structuredClone(defaultState);
+  return normalizeState(loaded);
+}
+
+function normalizeState(data) {
+  const normalized = { ...structuredClone(defaultState), ...data };
+
+  if (!Array.isArray(normalized.vendors) || !normalized.vendors.length) {
+    normalized.vendors = structuredClone(defaultState.vendors);
+  }
+
+  if (!Array.isArray(normalized.riders) || !normalized.riders.length) {
+    normalized.riders = structuredClone(defaultState.riders);
+  }
+
+  normalized.products = (normalized.products || []).map(product => {
+    if (!product.vendorId) {
+      const vendor = normalized.vendors.find(v => v.businessName === product.vendor || v.fullName === product.vendor);
+      product.vendorId = vendor ? vendor.id : normalized.vendors[0]?.id;
+    }
+    if (!product.vendor && product.vendorId) {
+      product.vendor = getVendorNameById(product.vendorId, normalized.vendors);
+    }
+    return product;
+  });
+
+  return normalized;
+}
+
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function money(amount) {
+  return `GHS ${Number(amount).toFixed(2)}`;
+}
+
+function getVendorNameById(vendorId, vendorList = state.vendors) {
+  const vendor = vendorList.find(v => v.id === vendorId);
+  return vendor ? vendor.businessName : 'Unassigned Vendor';
+}
+
+function getActiveRider() {
+  return state.riders.find(rider => rider.status === 'Approved' && rider.online) || null;
+}
+
+function nextVendorId() {
+  return `V-${String(Date.now()).slice(-6)}`;
+}
+
+function nextRiderId() {
+  return `R-${String(Date.now()).slice(-6)}`;
+}
+
+function generateOtp() {
+  return String(Math.floor(1000 + Math.random() * 9000));
+}
+
+function generateOrderNumber() {
+  return `KKE-${Date.now().toString().slice(-6)}`;
+}
+
+function getBadgeClass(status) {
+  if (['Delivered', 'Completed', 'Vendor Accepted', 'Picked Up', 'In Transit'].includes(status)) return 'green';
+  if (['Pending', 'Rider Searching', 'Rider Assigned', 'Ready for Pickup'].includes(status)) return 'orange';
+  if (['Cancelled', 'Vendor Rejected', 'Failed Delivery', 'Disputed'].includes(status)) return 'red';
+  return 'blue';
+}
+
+function switchRole(role) {
+  document.querySelectorAll('.tab').forEach(btn => btn.classList.toggle('active', btn.dataset.role === role));
+  document.querySelectorAll('.panel').forEach(panel => panel.classList.toggle('active-panel', panel.id === role));
+}
+
+document.querySelectorAll('.tab').forEach(btn => {
+  btn.addEventListener('click', () => switchRole(btn.dataset.role));
+});
+
+document.getElementById('resetDataBtn').addEventListener('click', () => {
+  if (!confirm('Reset the demo data?')) return;
+  state = structuredClone(defaultState);
+  saveState();
+  renderAll();
+});
+
+function renderProducts() {
+  const market = document.getElementById('marketFilter').value;
+  const search = document.getElementById('productSearch').value.toLowerCase();
+  const list = document.getElementById('productList');
+
+  const filtered = state.products.filter(product => {
+    const marketMatch = market === 'all' || product.market === market;
+    const searchMatch = `${product.name} ${product.category} ${product.market} ${product.vendor}`.toLowerCase().includes(search);
+    return marketMatch && searchMatch;
+  });
+
+  list.innerHTML = filtered.map(product => `
+    <article class="product-card">
+      <div class="product-img">${product.icon || '🛒'}</div>
+      <div>
+        <h4>${product.name}</h4>
+        <p class="meta">${product.vendor} • ${product.market} Market • ${product.category}</p>
+        <p><strong>${money(product.price)}</strong> / ${product.unit} <span class="badge">Stock: ${product.stock}</span></p>
+        <button class="primary-btn" onclick="addToCart(${product.id})" ${!state.vendorOpen || product.stock < 1 ? 'disabled' : ''}>
+          ${state.vendorOpen ? 'Add to Cart' : 'Vendor Closed'}
+        </button>
+      </div>
+    </article>
+  `).join('') || '<div class="empty-state">No products found.</div>';
+}
+
+document.getElementById('marketFilter').addEventListener('change', renderProducts);
+document.getElementById('productSearch').addEventListener('input', renderProducts);
+
+function addToCart(productId) {
+  const product = state.products.find(p => p.id === productId);
+  if (!product || product.stock < 1) return;
+
+  const existing = state.cart.find(item => item.productId === productId);
+  if (existing) {
+    if (existing.quantity >= product.stock) return alert('Cannot order more than available stock.');
+    existing.quantity += 1;
+  } else {
+    state.cart.push({ productId, quantity: 1 });
+  }
+  saveState();
+  renderCart();
+}
+
+function updateCartQty(productId, delta) {
+  const item = state.cart.find(i => i.productId === productId);
+  const product = state.products.find(p => p.id === productId);
+  if (!item || !product) return;
+
+  item.quantity += delta;
+  if (item.quantity <= 0) {
+    state.cart = state.cart.filter(i => i.productId !== productId);
+  } else if (item.quantity > product.stock) {
+    item.quantity = product.stock;
+  }
+  saveState();
+  renderCart();
+}
+
+function cartSubtotal() {
+  return state.cart.reduce((sum, item) => {
+    const product = state.products.find(p => p.id === item.productId);
+    return sum + (product ? product.price * item.quantity : 0);
+  }, 0);
+}
+
+function renderCart() {
+  const list = document.getElementById('cartItems');
+  const subtotal = cartSubtotal();
+  document.getElementById('cartTotal').textContent = money(subtotal + (state.cart.length ? DELIVERY_FEE : 0));
+
+  if (!state.cart.length) {
+    list.className = 'cart-list empty-state';
+    list.innerHTML = 'Your cart is empty.';
+    return;
+  }
+
+  list.className = 'cart-list';
+  list.innerHTML = state.cart.map(item => {
+    const product = state.products.find(p => p.id === item.productId);
+    return `
+      <div class="cart-item">
+        <strong>${product.name}</strong>
+        <p class="meta">${money(product.price)} × ${item.quantity} = ${money(product.price * item.quantity)}</p>
+        <div class="actions">
+          <button class="secondary-btn" onclick="updateCartQty(${product.id}, -1)">-</button>
+          <button class="secondary-btn" onclick="updateCartQty(${product.id}, 1)">+</button>
+        </div>
+      </div>
+    `;
+  }).join('') + `
+    <div class="cart-item">
+      <p>Subtotal: <strong>${money(subtotal)}</strong></p>
+      <p>Delivery Fee: <strong>${money(DELIVERY_FEE)}</strong></p>
+      <p>Total: <strong>${money(subtotal + DELIVERY_FEE)}</strong></p>
+    </div>
+  `;
+}
+
+document.getElementById('checkoutForm').addEventListener('submit', event => {
+  event.preventDefault();
+  if (!state.cart.length) return alert('Your cart is empty.');
+  if (!state.vendorOpen) return alert('Vendor is currently closed.');
+
+  const items = state.cart.map(item => {
+    const product = state.products.find(p => p.id === item.productId);
+    return {
+      productId: product.id,
+      name: product.name,
+      vendorId: product.vendorId,
+      vendor: product.vendor,
+      market: product.market,
+      price: product.price,
+      quantity: item.quantity,
+      subtotal: product.price * item.quantity
+    };
+  });
+
+  for (const item of state.cart) {
+    const product = state.products.find(p => p.id === item.productId);
+    if (product.stock < item.quantity) return alert(`${product.name} does not have enough stock.`);
+  }
+
+  state.cart.forEach(item => {
+    const product = state.products.find(p => p.id === item.productId);
+    product.stock -= item.quantity;
+  });
+
+  const subtotal = items.reduce((sum, item) => sum + item.subtotal, 0);
+  const order = {
+    id: crypto.randomUUID(),
+    orderNumber: generateOrderNumber(),
+    customerName: document.getElementById('customerName').value,
+    customerPhone: document.getElementById('customerPhone').value,
+    deliveryAddress: document.getElementById('deliveryAddress').value,
+    paymentMethod: document.getElementById('paymentMethod').value,
+    paymentStatus: document.getElementById('paymentMethod').value === 'Cash on Delivery' ? 'Pending Cash Collection' : 'Held in Escrow',
+    status: 'Pending',
+    items,
+    subtotal,
+    deliveryFee: DELIVERY_FEE,
+    total: subtotal + DELIVERY_FEE,
+    commission: subtotal * COMMISSION_RATE,
+    pickupOtp: generateOtp(),
+    deliveryOtp: generateOtp(),
+    rider: null,
+    createdAt: new Date().toISOString(),
+    history: [{ status: 'Pending', note: 'Customer placed order', time: new Date().toISOString() }]
+  };
+
+  state.orders.unshift(order);
+  state.cart = [];
+  saveState();
+  renderAll();
+  alert(`Order placed successfully. Order Number: ${order.orderNumber}`);
+});
+
+function renderVendorSelector() {
+  const select = document.getElementById('newProductVendor');
+  if (!select) return;
+
+  const approvedVendors = state.vendors.filter(vendor => vendor.status === 'Approved');
+  select.innerHTML = approvedVendors.map(vendor => `
+    <option value="${vendor.id}">${vendor.businessName} - ${vendor.market}</option>
+  `).join('') || '<option value="">No approved vendor available</option>';
+}
+
+function renderVendorProducts() {
+  document.getElementById('vendorStatusText').textContent = state.vendorOpen ? 'Open' : 'Closed';
+  const list = document.getElementById('vendorProducts');
+  list.innerHTML = state.products.map(product => `
+    <article class="product-card">
+      <div class="product-img">${product.icon || '🛒'}</div>
+      <div>
+        <h4>${product.name}</h4>
+        <p class="meta">${product.market} • ${product.category}</p>
+        <p>${money(product.price)} • Stock: <strong>${product.stock}</strong> ${product.unit}</p>
+        <div class="actions">
+          <button class="secondary-btn" onclick="changeStock(${product.id}, 1)">Add Stock</button>
+          <button class="danger-btn" onclick="changeStock(${product.id}, -1)">Reduce Stock</button>
+        </div>
+      </div>
+    </article>
+  `).join('');
+}
+
+document.getElementById('toggleVendorBtn').addEventListener('click', () => {
+  state.vendorOpen = !state.vendorOpen;
+  saveState();
+  renderAll();
+});
+
+document.getElementById('productForm').addEventListener('submit', event => {
+  event.preventDefault();
+  const vendorId = document.getElementById('newProductVendor').value;
+  const vendor = state.vendors.find(v => v.id === vendorId);
+
+  if (!vendor) return alert('Please add or select a valid vendor first.');
+
+  const product = {
+    id: Date.now(),
+    name: document.getElementById('newProductName').value,
+    market: document.getElementById('newProductMarket').value,
+    category: document.getElementById('newProductCategory').value,
+    price: Number(document.getElementById('newProductPrice').value),
+    stock: Number(document.getElementById('newProductStock').value),
+    unit: 'unit',
+    icon: '🛒',
+    vendorId,
+    vendor: vendor.businessName
+  };
+  state.products.unshift(product);
+  event.target.reset();
+  saveState();
+  renderAll();
+});
+
+function changeStock(productId, delta) {
+  const product = state.products.find(p => p.id === productId);
+  product.stock = Math.max(0, product.stock + delta);
+  saveState();
+  renderAll();
+}
+
+function appendHistory(order, status, note) {
+  order.history.push({ status, note, time: new Date().toISOString() });
+}
+
+function vendorAccept(orderId) {
+  const order = state.orders.find(o => o.id === orderId);
+  const rider = getActiveRider();
+
+  order.status = 'Rider Searching';
+  appendHistory(order, 'Vendor Accepted', 'Vendor accepted the order and rider search started');
+
+  if (rider) {
+    order.status = 'Rider Assigned';
+    order.riderId = rider.id;
+    order.rider = rider.fullName;
+    appendHistory(order, 'Rider Assigned', `${rider.fullName} was assigned as the nearest online rider`);
+  }
+  saveState();
+  renderAll();
+}
+
+function vendorReject(orderId) {
+  const order = state.orders.find(o => o.id === orderId);
+  if (!confirm('Reject this order and restore stock?')) return;
+  order.status = 'Vendor Rejected';
+  order.paymentStatus = order.paymentMethod === 'Mobile Money Escrow' ? 'Refund Required' : 'No Payment Collected';
+  restoreStock(order);
+  appendHistory(order, 'Vendor Rejected', 'Vendor rejected order and stock was restored');
+  saveState();
+  renderAll();
+}
+
+function markReady(orderId) {
+  const order = state.orders.find(o => o.id === orderId);
+  order.status = 'Ready for Pickup';
+  appendHistory(order, 'Ready for Pickup', 'Vendor marked order as ready for rider pickup');
+  saveState();
+  renderAll();
+}
+
+function restoreStock(order) {
+  order.items.forEach(item => {
+    const product = state.products.find(p => p.id === item.productId);
+    if (product) product.stock += item.quantity;
+  });
+}
+
+function cancelOrder(orderId) {
+  const order = state.orders.find(o => o.id === orderId);
+  if (['Picked Up', 'In Transit', 'Arrived', 'Delivered', 'Completed'].includes(order.status)) {
+    return alert('Order cannot be cancelled after pickup.');
+  }
+  if (!confirm('Cancel this order?')) return;
+  order.status = 'Cancelled';
+  order.paymentStatus = order.paymentMethod === 'Mobile Money Escrow' ? 'Refund Required' : 'No Payment Collected';
+  restoreStock(order);
+  appendHistory(order, 'Cancelled', 'Customer cancelled order before pickup');
+  saveState();
+  renderAll();
+}
+
+function riderAccept(orderId) {
+  const order = state.orders.find(o => o.id === orderId);
+  const rider = getActiveRider();
+
+  if (!rider) return alert('No approved online rider is available.');
+
+  order.status = 'Rider Assigned';
+  order.riderId = rider.id;
+  order.rider = rider.fullName;
+  appendHistory(order, 'Rider Assigned', `${rider.fullName} accepted order request`);
+  saveState();
+  renderAll();
+}
+
+function verifyPickup(orderId) {
+  const order = state.orders.find(o => o.id === orderId);
+  const code = prompt(`Enter Vendor Pickup OTP. Demo OTP: ${order.pickupOtp}`);
+  if (code !== order.pickupOtp) return alert('Invalid pickup OTP.');
+  order.status = 'In Transit';
+  appendHistory(order, 'In Transit', 'Pickup OTP verified and rider is delivering goods');
+  saveState();
+  renderAll();
+}
+
+function verifyDelivery(orderId) {
+  const order = state.orders.find(o => o.id === orderId);
+  const code = prompt(`Enter Customer Delivery OTP. Demo OTP: ${order.deliveryOtp}`);
+  if (code !== order.deliveryOtp) return alert('Invalid delivery OTP.');
+  order.status = 'Delivered';
+  order.paymentStatus = order.paymentMethod === 'Cash on Delivery' ? 'Cash Collected' : 'Escrow Cooling Period';
+  appendHistory(order, 'Delivered', 'Customer delivery OTP verified');
+  saveState();
+  renderAll();
+}
+
+function closeSettlement(orderId) {
+  const order = state.orders.find(o => o.id === orderId);
+  order.status = 'Completed';
+  order.paymentStatus = 'Settled';
+  appendHistory(order, 'Completed', 'Admin closed settlement after cooling period');
+  saveState();
+  renderAll();
+}
+
+function raiseDispute(orderId) {
+  const order = state.orders.find(o => o.id === orderId);
+  order.status = 'Disputed';
+  order.paymentStatus = 'Settlement Paused';
+  appendHistory(order, 'Disputed', 'Complaint raised for admin review');
+  saveState();
+  renderAll();
+}
+
+function renderOrderCard(order, context) {
+  const canCancel = context === 'customer' && !['Picked Up', 'In Transit', 'Arrived', 'Delivered', 'Completed', 'Cancelled', 'Vendor Rejected'].includes(order.status);
+  const items = order.items.map(item => `${item.name} × ${item.quantity}`).join(', ');
+  const history = order.history.slice(-3).map(h => `<li>${h.status}: ${h.note}</li>`).join('');
+
+  let actions = '';
+  if (context === 'customer') {
+    actions += `<button class="secondary-btn" onclick="printReceipt('${order.id}')">Print Receipt</button>`;
+    if (canCancel) actions += `<button class="danger-btn" onclick="cancelOrder('${order.id}')">Cancel Order</button>`;
+    if (order.status === 'Delivered') actions += `<button class="danger-btn" onclick="raiseDispute('${order.id}')">Report Issue</button>`;
+  }
+
+  if (context === 'vendor') {
+    if (order.status === 'Pending') {
+      actions += `<button class="success-btn" onclick="vendorAccept('${order.id}')">Accept</button>`;
+      actions += `<button class="danger-btn" onclick="vendorReject('${order.id}')">Reject</button>`;
+    }
+    if (order.status === 'Rider Assigned') {
+      actions += `<button class="primary-btn" onclick="markReady('${order.id}')">Mark Ready</button>`;
+    }
+  }
+
+  if (context === 'rider') {
+    if (order.status === 'Rider Searching') actions += `<button class="success-btn" onclick="riderAccept('${order.id}')">Accept Delivery</button>`;
+    if (['Rider Assigned', 'Ready for Pickup'].includes(order.status)) actions += `<button class="primary-btn" onclick="verifyPickup('${order.id}')">Verify Pickup OTP</button>`;
+    if (order.status === 'In Transit') actions += `<button class="primary-btn" onclick="verifyDelivery('${order.id}')">Confirm Delivery OTP</button>`;
+  }
+
+  if (context === 'admin') {
+    if (['Delivered', 'Disputed'].includes(order.status)) actions += `<button class="success-btn" onclick="closeSettlement('${order.id}')">Close / Settle</button>`;
+    if (!['Cancelled', 'Completed', 'Vendor Rejected'].includes(order.status)) actions += `<button class="danger-btn" onclick="raiseDispute('${order.id}')">Flag Dispute</button>`;
+  }
+
+  return `
+    <article class="order-card">
+      <div class="split-row">
+        <div>
+          <h4>${order.orderNumber}</h4>
+          <p class="meta">${new Date(order.createdAt).toLocaleString()} • ${order.paymentMethod}</p>
+        </div>
+        <span class="badge ${getBadgeClass(order.status)}">${order.status}</span>
+      </div>
+      <p><strong>Customer:</strong> ${order.customerName} • <strong>Address:</strong> ${order.deliveryAddress}</p>
+      <p><strong>Items:</strong> ${items}</p>
+      <p><strong>Total:</strong> ${money(order.total)} • <strong>Payment:</strong> ${order.paymentStatus}</p>
+      <p class="meta"><strong>Pickup OTP:</strong> ${order.pickupOtp} • <strong>Delivery OTP:</strong> ${order.deliveryOtp}</p>
+      <ul class="meta">${history}</ul>
+      <div class="actions">${actions}</div>
+    </article>
+  `;
+}
+
+function renderOrders() {
+  const customerOrders = document.getElementById('customerOrders');
+  customerOrders.innerHTML = state.orders.length ? state.orders.map(order => renderOrderCard(order, 'customer')).join('') : '<div class="empty-state">No customer orders yet.</div>';
+
+  const vendorOrders = document.getElementById('vendorOrders');
+  const vendorVisible = state.orders.filter(order => !['Completed'].includes(order.status));
+  vendorOrders.innerHTML = vendorVisible.length ? vendorVisible.map(order => renderOrderCard(order, 'vendor')).join('') : '<div class="empty-state">No vendor orders yet.</div>';
+
+  const riderOrders = document.getElementById('riderOrders');
+  const riderVisible = state.orders.filter(order => ['Rider Searching', 'Rider Assigned', 'Ready for Pickup', 'In Transit'].includes(order.status));
+  riderOrders.innerHTML = riderVisible.length ? riderVisible.map(order => renderOrderCard(order, 'rider')).join('') : '<div class="empty-state">No active deliveries.</div>';
+
+  const adminOrders = document.getElementById('adminOrders');
+  adminOrders.innerHTML = state.orders.length ? state.orders.map(order => renderOrderCard(order, 'admin')).join('') : '<div class="empty-state">No platform orders yet.</div>';
+}
+
+document.getElementById('toggleRiderBtn').addEventListener('click', () => {
+  state.riderOnline = !state.riderOnline;
+  const demoRider = state.riders[0];
+  if (demoRider) demoRider.online = state.riderOnline;
+  saveState();
+  renderAll();
+});
+
+function renderRider() {
+  const onlineCount = state.riders.filter(rider => rider.status === 'Approved' && rider.online).length;
+  document.getElementById('riderStatusText').textContent = onlineCount ? `${onlineCount} Online` : 'Offline';
+}
+
+function isFinalOrderStatus(status) {
+  return ['Cancelled', 'Completed', 'Vendor Rejected', 'Refunded', 'Delivered'].includes(status);
+}
+
+document.getElementById('adminVendorForm').addEventListener('submit', event => {
+  event.preventDefault();
+
+  const vendor = {
+    id: nextVendorId(),
+    fullName: document.getElementById('adminVendorName').value.trim(),
+    businessName: document.getElementById('adminVendorBusiness').value.trim(),
+    phone: document.getElementById('adminVendorPhone').value.trim(),
+    market: document.getElementById('adminVendorMarket').value,
+    stall: document.getElementById('adminVendorStall').value.trim(),
+    goods: document.getElementById('adminVendorGoods').value.trim(),
+    status: 'Approved',
+    createdAt: new Date().toISOString()
+  };
+
+  state.vendors.unshift(vendor);
+  event.target.reset();
+  saveState();
+  renderAll();
+  alert(`${vendor.businessName} has been added as a vendor.`);
+});
+
+document.getElementById('adminRiderForm').addEventListener('submit', event => {
+  event.preventDefault();
+
+  const rider = {
+    id: nextRiderId(),
+    fullName: document.getElementById('adminRiderName').value.trim(),
+    phone: document.getElementById('adminRiderPhone').value.trim(),
+    bikeNumber: document.getElementById('adminRiderBike').value.trim(),
+    licenseNumber: document.getElementById('adminRiderLicense').value.trim(),
+    zone: document.getElementById('adminRiderMarket').value,
+    emergencyContact: document.getElementById('adminRiderEmergency').value.trim(),
+    status: 'Approved',
+    online: true,
+    createdAt: new Date().toISOString()
+  };
+
+  state.riders.unshift(rider);
+  event.target.reset();
+  saveState();
+  renderAll();
+  alert(`${rider.fullName} has been added as a rider.`);
+});
+
+function removeVendor(vendorId) {
+  const vendor = state.vendors.find(v => v.id === vendorId);
+  if (!vendor) return;
+
+  const hasActiveOrders = state.orders.some(order => {
+    const vendorOrder = order.items.some(item => item.vendorId === vendorId || item.vendor === vendor.businessName);
+    return vendorOrder && !isFinalOrderStatus(order.status);
+  });
+
+  if (hasActiveOrders) {
+    return alert('This vendor has an active order. Complete, cancel, or settle the order before removing the vendor.');
+  }
+
+  if (!confirm(`Remove ${vendor.businessName}? Their product listings will also be removed.`)) return;
+
+  state.vendors = state.vendors.filter(v => v.id !== vendorId);
+  state.products = state.products.filter(product => product.vendorId !== vendorId);
+  state.cart = state.cart.filter(cartItem => state.products.some(product => product.id === cartItem.productId));
+  saveState();
+  renderAll();
+}
+
+function removeRider(riderId) {
+  const rider = state.riders.find(r => r.id === riderId);
+  if (!rider) return;
+
+  const hasActiveDelivery = state.orders.some(order => order.riderId === riderId && !isFinalOrderStatus(order.status));
+  if (hasActiveDelivery) {
+    return alert('This rider has an active delivery. Complete or reassign the delivery before removing the rider.');
+  }
+
+  if (!confirm(`Remove rider ${rider.fullName}?`)) return;
+
+  state.riders = state.riders.filter(r => r.id !== riderId);
+  saveState();
+  renderAll();
+}
+
+function toggleRiderOnline(riderId) {
+  const rider = state.riders.find(r => r.id === riderId);
+  if (!rider) return;
+  rider.online = !rider.online;
+  state.riderOnline = state.riders.some(r => r.status === 'Approved' && r.online);
+  saveState();
+  renderAll();
+}
+
+function renderAdminUsers() {
+  const vendorsEl = document.getElementById('adminVendors');
+  const ridersEl = document.getElementById('adminRiders');
+
+  vendorsEl.innerHTML = state.vendors.length ? state.vendors.map(vendor => `
+    <article class="user-card">
+      <div>
+        <h4>${vendor.businessName}</h4>
+        <p class="meta">${vendor.fullName} • ${vendor.phone}</p>
+        <p class="meta">${vendor.market} Market • ${vendor.stall}</p>
+        <p><span class="badge green">${vendor.status}</span> <span class="badge">${vendor.goods}</span></p>
+      </div>
+      <button class="danger-btn" onclick="removeVendor('${vendor.id}')">Remove</button>
+    </article>
+  `).join('') : '<div class="empty-state">No vendors added.</div>';
+
+  ridersEl.innerHTML = state.riders.length ? state.riders.map(rider => `
+    <article class="user-card">
+      <div>
+        <h4>${rider.fullName}</h4>
+        <p class="meta">${rider.phone} • Bike: ${rider.bikeNumber}</p>
+        <p class="meta">Zone: ${rider.zone} • License: ${rider.licenseNumber}</p>
+        <p><span class="badge green">${rider.status}</span> <span class="badge ${rider.online ? 'green' : 'orange'}">${rider.online ? 'Online' : 'Offline'}</span></p>
+      </div>
+      <div class="actions vertical-actions">
+        <button class="secondary-btn" onclick="toggleRiderOnline('${rider.id}')">${rider.online ? 'Set Offline' : 'Set Online'}</button>
+        <button class="danger-btn" onclick="removeRider('${rider.id}')">Remove</button>
+      </div>
+    </article>
+  `).join('') : '<div class="empty-state">No riders added.</div>';
+}
+
+function renderAdminMetrics() {
+  const totalOrders = state.orders.length;
+  const delivered = state.orders.filter(o => ['Delivered', 'Completed'].includes(o.status)).length;
+  const revenue = state.orders.reduce((sum, o) => sum + (['Delivered', 'Completed'].includes(o.status) ? o.subtotal : 0), 0);
+  const commission = state.orders.reduce((sum, o) => sum + (['Delivered', 'Completed'].includes(o.status) ? o.commission : 0), 0);
+
+  document.getElementById('adminMetrics').innerHTML = `
+    <div class="metric-card"><span>Total Orders</span><strong>${totalOrders}</strong></div>
+    <div class="metric-card"><span>Delivered Orders</span><strong>${delivered}</strong></div>
+    <div class="metric-card"><span>Vendors</span><strong>${state.vendors.length}</strong></div>
+    <div class="metric-card"><span>Riders</span><strong>${state.riders.length}</strong></div>
+    <div class="metric-card"><span>Vendor Sales</span><strong>${money(revenue)}</strong></div>
+    <div class="metric-card"><span>Platform Commission</span><strong>${money(commission)}</strong></div>
+  `;
+}
+
+function printReceipt(orderId) {
+  const order = state.orders.find(o => o.id === orderId);
+  const receipt = document.getElementById('receiptTemplate').content.cloneNode(true);
+  receipt.querySelector('.receipt-date').textContent = `Receipt for ${order.orderNumber} • ${new Date(order.createdAt).toLocaleString()}`;
+  receipt.querySelector('.receipt-body').innerHTML = `
+    <p><strong>Customer:</strong> ${order.customerName}</p>
+    <p><strong>Phone:</strong> ${order.customerPhone}</p>
+    <p><strong>Delivery Address:</strong> ${order.deliveryAddress}</p>
+    <p><strong>Status:</strong> ${order.status}</p>
+    <p><strong>Payment:</strong> ${order.paymentMethod} - ${order.paymentStatus}</p>
+    <table style="width:100%; border-collapse: collapse; margin-top: 1rem;">
+      <thead>
+        <tr>
+          <th style="text-align:left; border-bottom:1px solid #ddd; padding:8px;">Item</th>
+          <th style="text-align:right; border-bottom:1px solid #ddd; padding:8px;">Qty</th>
+          <th style="text-align:right; border-bottom:1px solid #ddd; padding:8px;">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${order.items.map(item => `
+          <tr>
+            <td style="padding:8px; border-bottom:1px solid #eee;">${item.name}</td>
+            <td style="padding:8px; border-bottom:1px solid #eee; text-align:right;">${item.quantity}</td>
+            <td style="padding:8px; border-bottom:1px solid #eee; text-align:right;">${money(item.subtotal)}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+    <p><strong>Subtotal:</strong> ${money(order.subtotal)}</p>
+    <p><strong>Delivery Fee:</strong> ${money(order.deliveryFee)}</p>
+    <h3>Total: ${money(order.total)}</h3>
+  `;
+
+  const printArea = document.createElement('div');
+  printArea.className = 'print-area';
+  printArea.appendChild(receipt);
+  document.body.appendChild(printArea);
+  window.print();
+  printArea.remove();
+}
+
+function renderAll() {
+  renderProducts();
+  renderCart();
+  renderVendorSelector();
+  renderVendorProducts();
+  renderRider();
+  renderOrders();
+  renderAdminUsers();
+  renderAdminMetrics();
+}
+
+renderAll();
+
+  </script>
+</body>
+</html>
